@@ -37,8 +37,9 @@ class AbstractGameUnit(metaclass=ABCMeta):
 
     def attack(self, enemy):
         injured_unit = weighted_random_selection(self, enemy)
-        injury = random.randint(10, 15)
-        injured_unit.health_meter = max(injured_unit.health_meter - injury, 0)
+        if injured_unit:
+            injury = random.randint(10, 15)
+            injured_unit.health_meter = max(injured_unit.health_meter - injury, 0)
         print("攻击! ", end='\n')
         self.show_health(end='  ')
         enemy.show_health(end='  ')
