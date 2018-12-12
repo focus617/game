@@ -50,5 +50,16 @@ def weighted_random_selection(obj1, obj2):
         return obj2
 
 
+# def weighted_random_selection(obj1, obj2):
+#    """ new version to allow non-injure to both units with 10% possibility """
+#     weighted_list = 3*[id(obj1)] + 6*[id(obj2)] + 1*[None]
+#     selection = random.choice(weighted_list)
+#     if selection == id(obj1):
+#         return obj1
+#     elif selection == id(obj2):
+#         return obj2
+#     else:
+#         return None
+
 
 

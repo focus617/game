@@ -87,20 +87,27 @@ class AttackofTheOrcs:
             except IndexError:
                 print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % hut_number)
                 continue
+            # If idx <= 0
             except AssertionError:
                 print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % hut_number)
                 continue
 
         return idx
 
-    def play(self):
-        self.show_game_mission()
-
-        self._occupy_huts()
+    def setup_game_scenario(self):
+        """ Create player - a Knight and huts, then randomly pre-occupy huts """
         self.player = Knight()
         self.player.info()
         self.player.show_health(bold=False)
+        self._occupy_huts()
 
+    def play(self):
+        """" Workhorse method to play the game"""
+        # Initialize the game setup
+        self.show_game_mission()
+        self.setup_game_scenario()
+
+        # main game play logic begins
         acquires_hut_counter = 0
         while acquires_hut_counter < hut_number:
             idx = self._process_user_choice()
@@ -118,7 +125,6 @@ class AttackofTheOrcs:
 
 
 if __name__ == '__main__':
-    # self-test code
     show_theme_message()
 
     game = AttackofTheOrcs()

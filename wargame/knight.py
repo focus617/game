@@ -29,8 +29,9 @@ class Knight(AbstractGameUnit):
         continue_attack = 'y'
         if is_enemy:
             print_bold('发现敌人！')
-            self.show_health(bold=True, end='  ')
-            hut.occupant.show_health(bold=True, end='')
+            self.show_health(bold=True, end='\t  VS.\t ')
+            hut.occupant.show_health(bold=True, end='\n')
+            hut.occupant.info()
             while continue_attack:
                 try:
                     continue_attack = input('.......是否继续攻击？(y/n): ')
