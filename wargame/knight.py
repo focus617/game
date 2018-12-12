@@ -4,8 +4,8 @@
 《python应用开发实战》
 """
 
-from .gameutils import *
-from .abstractgameunit import AbstractGameUnit
+from gameutils import *
+from abstractgameunit import AbstractGameUnit
 
 
 class Knight(AbstractGameUnit):

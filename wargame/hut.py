@@ -4,7 +4,7 @@
 《python应用开发实战》
 """
 
-from .gameutils import *
+from gameutils import *
 
 
 class Hut:

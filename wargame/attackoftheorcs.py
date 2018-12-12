@@ -17,11 +17,10 @@
 
 import sys
 
-
-from .gameutils import *
-from .hut import Hut
-from .knight import Knight
-from .orcrider import OrcRider
+from gameutils import *
+from hut import Hut
+from knight import Knight
+from orcrider import OrcRider
 
 hut_number = 5
 

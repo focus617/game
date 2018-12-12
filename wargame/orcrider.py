@@ -4,7 +4,7 @@
 《python应用开发实战》
 """
 
-from .abstractgameunit import AbstractGameUnit
+from abstractgameunit import AbstractGameUnit
 
 
 class OrcRider(AbstractGameUnit):

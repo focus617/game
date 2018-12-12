@@ -6,8 +6,8 @@
 
 from abc import ABCMeta, abstractmethod
 
-from .gameuniterror import GameUnitError
-from .gameutils import *
+from gameuniterror import GameUnitError
+from gameutils import *
 
 class AbstractGameUnit(metaclass=ABCMeta):
 
