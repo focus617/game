@@ -36,9 +36,11 @@ class AbstractGameUnit(metaclass=ABCMeta):
     def show_accessories(self, bold=False, end='\n'):
         """Show the accessory list of the GameUnit """
         msg = "%s的装备:  " % (self.name)
-        for item in self.accessories:
-            msg += type(item).__name__
-            msg += ', '
+        msg += '，'.join(item.__class__.__name__
+                        for item in self.accessories)
+        # for item in self.accessories:
+        #     msg += type(item).__name__
+        #     msg += ', '
 
         if bold:
             print_bold(msg, end=end)
@@ -101,11 +103,10 @@ class AbstractGameUnit(metaclass=ABCMeta):
         print_bold("已被治疗!", end=' ')
         self.show_health(bold=True)
 
-    def equip_with_armor(self, armor_type):
-        """ This function is used to equip with accessory - armor type """
-        armor = type(self).factory.create_armor(armor_type)
-        self.accessories.append(armor)
-
+    def equip_with_accessory(self, accessory_type):
+        """ This function is used to equip with accessory , such as armor """
+        accessory = type(self).factory.create_accessory(accessory_type)
+        self.accessories.append(accessory)
 
 
 

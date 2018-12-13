@@ -7,7 +7,7 @@
 from gameutils import *
 
 
-# 人类的盔甲
+# 人类的盔甲, 挂件
 class IronJacket:
     def __str__(self):
         return 'IronJacket'
@@ -21,7 +21,19 @@ class MithrilArmor:
     pass
 
 
-# 兽人的盔甲
+class GlodLocket:
+    pass
+
+
+class SuperLokcet:
+    pass
+
+
+class MagicLocket:
+    pass
+
+
+# 兽人的盔甲, 挂件
 class OrcIronJacket:
     pass
 
@@ -34,24 +46,41 @@ class OrcMithrilArmor:
     pass
 
 
+class OrcGlodLocket:
+    pass
+
+
+class OrcSuperLokcet:
+    pass
+
+
+class OrcMagicLocket:
+    pass
+
 class AccessoryFactory:
-    armor_dict = {
+    accessory_dict = {
         'ironjacket': IronJacket,
         'powersuit': PowerSuit,
-        'mithril'     : MithrilArmor
+        'mithril'     : MithrilArmor,
+        'goldlocket': GlodLocket,
+        'superlocket':SuperLokcet,
+        'magiclocket':MagicLocket
     }
 
     @classmethod
-    def create_armor(cls, armor_type):
-        print_bold('%s型盔甲已被装备' % armor_type.upper())
-        return cls.armor_dict.get(armor_type)()   # 根据armor_type创建具体的盔甲类实例
+    def create_accessory(cls, accessory_type):
+        print_bold('获得%s装备' % accessory_type.upper())
+        return cls.accessory_dict.get(accessory_type)()   # 根据armor_type创建具体的盔甲类实例
 
 
 class OrcAccessoryFactory(AccessoryFactory):
-    armor_dict = {
+    accessory_dict = {
         'ironjacket': OrcIronJacket,
         'powersuit': OrcPowerSuit,
-        'mithril'     : OrcMithrilArmor
+        'mithril'     : OrcMithrilArmor,
+        'goldlocket': OrcGlodLocket,
+        'superlocket': OrcSuperLokcet,
+        'magiclocket': OrcMagicLocket
     }
 
 
