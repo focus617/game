@@ -6,12 +6,14 @@
 
 from gameutils import *
 from abstractgameunit import AbstractGameUnit
-
+from jumpstrategy import horse_jump
+from accessoryfactory import AccessoryFactory
 
 class Knight(AbstractGameUnit):
+    factory = AccessoryFactory  # 抽象工厂，用于添加装备
 
     def __init__(self, name='Foo先生'):
-        super().__init__(name=name)  # 调用超类的初始化函数
+        super().__init__(name=name, jump_strategy=horse_jump)  # 调用超类的初始化函数
         self.max_hp = 40
         self.health_meter = self.max_hp
         self.unit_type = '朋友'

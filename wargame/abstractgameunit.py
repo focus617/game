@@ -5,26 +5,48 @@
 """
 
 from abc import ABCMeta, abstractmethod
+from collections import Callable
 
 from gameuniterror import GameUnitError
 from gameutils import *
+from jumpstrategy import can_not_jump
+from accessoryfactory import AccessoryFactory
+
 
 class AbstractGameUnit(metaclass=ABCMeta):
+    factory = AccessoryFactory          # 抽象工厂，用于添加装备
 
-    def __init__(self, name=''):
-        self.name = name
+    def __init__(self, name='', jump_strategy=can_not_jump):
+        self.name = name                  # 表示NPC人物的“名号”
         self.max_hp = 0
         self.health_meter = 0
         self.enemy = None
-        self.unit_type = None  # 表示NPC人物的阵营
+        self.unit_type = None              # 表示NPC人物的阵营
+        self.accessories = []                 # NPC人物的装备列表
+
+        # 应用策略模型实现对GameUnit的跳跃能力的指派
+        assert (isinstance(jump_strategy, Callable))  # 确保jump_strategy是一个函数
+        self.jump = jump_strategy                         # 将函数jump_strategy赋值给变量self.jump
 
     @abstractmethod
     def info(self):
         """'Information on the unit (overridden in subclasses)'"""
         pass
 
+    def show_accessories(self, bold=False, end='\n'):
+        """Show the accessory list of the GameUnit """
+        msg = "%s的装备:  " % (self.name)
+        for item in self.accessories:
+            msg += type(item).__name__
+            msg += ', '
+
+        if bold:
+            print_bold(msg, end=end)
+        else:
+            print(msg, end=end)
+
     def show_health(self, bold=False, end='\n'):
-        """Show the remaining hit points of the player and the enemy"""
+        """Show the remaining hit points of the GameUnit """
         msg = "%s的生命值: %d" % (self.name, self.health_meter)
         if bold:
             print_bold(msg, end=end)
@@ -32,6 +54,7 @@ class AbstractGameUnit(metaclass=ABCMeta):
             print(msg, end=end)
 
     def show_health_comparison(self, bold=False, end='\n'):
+        """Show  comparison of the remaining hit points of the GameUnit and his enemy"""
         if self.enemy:
             self.show_health(bold, end='\t  VS.\t ')
             self.enemy.show_health(bold, end)
@@ -39,8 +62,12 @@ class AbstractGameUnit(metaclass=ABCMeta):
             print("Show health failed: No enemy facing now.")
 
     def reset_health_meter(self):
-        """Reset the `health_meter` (assign default hit points)"""
+        """Reset the `health_meter` (assign default hit points to GameUnit)"""
         self.health_meter = self.max_hp
+
+    def show_details(self):
+        self.show_health()
+        self.show_accessories()
 
     def attack(self):
         """ This function is used for GameUnit to attack his enemy.  The self.enemy must be setup in advance """
@@ -74,7 +101,10 @@ class AbstractGameUnit(metaclass=ABCMeta):
         print_bold("已被治疗!", end=' ')
         self.show_health(bold=True)
 
-
+    def equip_with_armor(self, armor_type):
+        """ This function is used to equip with accessory - armor type """
+        armor = type(self).factory.create_armor(armor_type)
+        self.accessories.append(armor)
 
 
 

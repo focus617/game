@@ -5,12 +5,14 @@
 """
 
 from abstractgameunit import AbstractGameUnit
-
+from jumpstrategy import power_jump
+from accessoryfactory import OrcAccessoryFactory
 
 class OrcRider(AbstractGameUnit):
+    factory = OrcAccessoryFactory          # 抽象工厂，用于添加装备
 
     def __init__(self, name=''):
-        super().__init__(name=name)
+        super().__init__(name=name, jump_strategy=power_jump)
         self.max_hp = 30
         self.health_meter = self.max_hp
         self.unit_type = '敌人'

@@ -7,26 +7,57 @@
 from gameutils import *
 
 
-class Hut:
+# 人类的盔甲
+class IronJacket:
+    def __str__(self):
+        return 'IronJacket'
 
-    def __init__(self, index, occupant):
-        self.id = index
-        self.occupant = occupant
-        self.is_acquired = False    # 标识木屋是否被占领
 
-    def acquire(self, new_occupant):
-        self.occupant = new_occupant
-        self.is_acquired = True
-        print_bold('干得好！%d号木屋已经被调查' % self.id)
+class PowerSuit:
+    pass
 
-    def get_occupant_type(self):
-        if self.is_acquired:
-            occupant_type = '已被调查'
-        elif self.occupant is None:
-            occupant_type = '无人居住'
-        else:
-            occupant_type = self.occupant.unit_type
-        return occupant_type
+
+class MithrilArmor:
+    pass
+
+
+# 兽人的盔甲
+class OrcIronJacket:
+    pass
+
+
+class OrcPowerSuit:
+    pass
+
+
+class OrcMithrilArmor:
+    pass
+
+
+class AccessoryFactory:
+    armor_dict = {
+        'ironjacket': IronJacket,
+        'powersuit': PowerSuit,
+        'mithril'     : MithrilArmor
+    }
+
+    @classmethod
+    def create_armor(cls, armor_type):
+        print_bold('%s型盔甲已被装备' % armor_type.upper())
+        return cls.armor_dict.get(armor_type)()   # 根据armor_type创建具体的盔甲类实例
+
+
+class OrcAccessoryFactory(AccessoryFactory):
+    armor_dict = {
+        'ironjacket': OrcIronJacket,
+        'powersuit': OrcPowerSuit,
+        'mithril'     : OrcMithrilArmor
+    }
+
+
+
+
+
 
 
 
