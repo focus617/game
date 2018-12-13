@@ -7,8 +7,9 @@
 import random
 import textwrap
 
+line_width = 72
 
-def print_dotted_line(width=72):
+def print_dotted_line(width=line_width):
     """漂亮的分割线"""
     print('-'*width)
 
@@ -18,7 +19,7 @@ def print_bold(msg, end='\n'):
     print('\033[1m'+msg+'\033[0m', end=end)
 
 
-def show_theme_message(width=72):
+def show_theme_message(width=line_width):
     print_dotted_line()
     # ---------------------------------------
     # 输出字体颜色格式的更改
@@ -52,7 +53,7 @@ def show_theme_message(width=72):
 
 def weighted_random_selection(obj1, obj2):
     """ new version to allow non-injure to both units with 10% possibility """
-    weighted_list = 3*[id(obj1)] + 6*[id(obj2)] + 1*[None]
+    weighted_list = 4*[id(obj1)] + 5*[id(obj2)] + 1*[None]
     selection = random.choice(weighted_list)
     if selection == id(obj1):
         return obj1

@@ -29,26 +29,31 @@ class Knight(AbstractGameUnit):
         continue_attack = 'y'
         if is_enemy:
             print_bold('发现敌人！')
-            self.show_health(bold=True, end='\t  VS.\t ')
-            hut.occupant.show_health(bold=True, end='\n')
-            hut.occupant.info()
+            self.enemy = hut.occupant
+            self.enemy.info()
+            self.show_health_comparison(bold=True)
             while continue_attack:
                 try:
-                    continue_attack = input('.......是否继续攻击？(y/n): ')
+                    continue_attack = input('\n.......是否继续攻击？(y/n): ')
                     assert (continue_attack in ['y', 'Y', 'n', 'N'])
                 except AssertionError:
                     print('无效输入！')
+                    continue_attack = 'y'
                     continue
 
+                # 逃跑或者继续攻击
                 if continue_attack.lower() == 'n':
                     self.runaway()
                     break
-                self.attack(hut.occupant)
+                else:
+                    self.attack()
 
-                if hut.occupant.health_meter <= 0:
+                if self.enemy.health_meter <= 0:
                     print(' ')
                     hut.acquire(self)
+                    self.enemy = None
                     break
+
                 if self.health_meter <= 0:
                     print(' ')
                     break
@@ -58,11 +63,14 @@ class Knight(AbstractGameUnit):
             else:
                 print_bold('找到一个朋友')
                 self.heal()
+
+                # 测试异常的情况：如果heal_by>40，导致health_meter超过最大值
                 # try:
                 #     self.heal(heal_by=100, full_healing=False)
                 # except GameUnitError as e:
                 #     print(e.error_message)
                 #     self.heal()
+
             hut.acquire(self)
 
     def runaway(self):
