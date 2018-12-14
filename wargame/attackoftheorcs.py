@@ -43,6 +43,7 @@ class AttackofTheOrcs:
         for i in range(HUT_NUMBER):
             choice_list = ['敌人', '朋友', None]
             computer_choice = random.choice(choice_list)
+
             # 根据计算机随机选择木屋里是敌人、队友或是空的
             if computer_choice == '敌人':
                 name = '敌人-' + str(i + 1)

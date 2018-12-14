@@ -57,11 +57,9 @@ class AbstractGameUnit(metaclass=ABCMeta):
 
     def show_health_comparison(self, bold=False, end='\n'):
         """Show  comparison of the remaining hit points of the GameUnit and his enemy"""
-        if self.enemy:
-            self.show_health(bold, end='\t  VS.\t ')
-            self.enemy.show_health(bold, end)
-        else:
-            print("Show health failed: No enemy facing now.")
+        assert self.enemy, "Show health failed: No enemy facing now."
+        self.show_health(bold, end='\t  VS.\t ')
+        self.enemy.show_health(bold, end)
 
     def reset_health_meter(self):
         """Reset the `health_meter` (assign default hit points to GameUnit)"""
@@ -73,15 +71,14 @@ class AbstractGameUnit(metaclass=ABCMeta):
 
     def attack(self):
         """ This function is used for GameUnit to attack his enemy.  The self.enemy must be setup in advance """
-        if self.enemy:
-            injured_unit = weighted_random_selection(self, self.enemy)
-            if injured_unit:
-                injury = random.randint(10, 15)
-                injured_unit.health_meter = max(injured_unit.health_meter - injury, 0)
-            print("攻击! ", end='\n')
-            self.show_health_comparison(bold=True)
-        else:
-            print("Attack failed: No enemy facing now.")
+        assert self.enemy, "Attack failed: No enemy facing now."
+
+        injured_unit = weighted_random_selection(self, self.enemy)
+        if injured_unit:
+            injury = random.randint(10, 15)
+            injured_unit.health_meter = max(injured_unit.health_meter - injury, 0)
+        print("攻击! ", end='\n')
+        self.show_health_comparison(bold=True)
 
     def heal(self, heal_by=2, full_healing=True):
         """Heal the unit replenishing all the hit points"""
