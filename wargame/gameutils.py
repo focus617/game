@@ -6,10 +6,9 @@
 
 import random
 import textwrap
+from const import  LINE_WIDTH
 
-line_width = 72
-
-def print_dotted_line(width=line_width):
+def print_dotted_line(width=LINE_WIDTH):
     """漂亮的分割线"""
     print('-'*width)
 
@@ -19,7 +18,7 @@ def print_bold(msg, end='\n'):
     print('\033[1m'+msg+'\033[0m', end=end)
 
 
-def show_theme_message(width=line_width):
+def show_theme_message(width=LINE_WIDTH):
     print_dotted_line()
     # ---------------------------------------
     # 输出字体颜色格式的更改

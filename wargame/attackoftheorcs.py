@@ -15,14 +15,11 @@
 8、可以让一个精灵骑士加入队伍，更大几率获胜
 """
 
-import sys
-
 from gameutils import *
 from hut import Hut
 from knight import Knight
 from orcrider import OrcRider
-
-hut_number = 5
+from const import HUT_NUMBER
 
 
 class AttackofTheOrcs:
@@ -43,7 +40,7 @@ class AttackofTheOrcs:
 
     def _occupy_huts(self):
         """Randomly occupy the hut with one of : friend, enemy or None"""
-        for i in range(hut_number):
+        for i in range(HUT_NUMBER):
             choice_list = ['敌人', '朋友', None]
             computer_choice = random.choice(choice_list)
             # 根据计算机随机选择木屋里是敌人、队友或是空的
@@ -63,7 +60,7 @@ class AttackofTheOrcs:
         idx = 0
         verifying_choice = True
         while verifying_choice:
-            user_choice = input('选择一个木屋进入(1-%d):' % hut_number)
+            user_choice = input('选择一个木屋进入(1-%d):' % HUT_NUMBER)
             #  exception process for non-integer user_choice
             try:
                 idx = int(user_choice)
@@ -79,11 +76,11 @@ class AttackofTheOrcs:
                 else:
                     verifying_choice = False
             except IndexError:
-                print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % hut_number)
+                print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % HUT_NUMBER)
                 continue
             # If idx <= 0
             except AssertionError:
-                print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % hut_number)
+                print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % HUT_NUMBER)
                 continue
 
         return idx
@@ -103,7 +100,7 @@ class AttackofTheOrcs:
 
         # main game play logic begins
         acquires_hut_counter = 0
-        while acquires_hut_counter < hut_number:
+        while acquires_hut_counter < HUT_NUMBER:
             idx = self._process_user_choice()
             self.player.acquire_hut(self.huts[idx-1])
 
@@ -114,7 +111,7 @@ class AttackofTheOrcs:
             if self.huts[idx-1].is_acquired:
                 acquires_hut_counter += 1
 
-        if acquires_hut_counter == hut_number:
+        if acquires_hut_counter == HUT_NUMBER:
             print_bold('祝贺你！你已经调查完所有的木屋')
 
 
