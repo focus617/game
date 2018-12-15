@@ -5,8 +5,6 @@ from wargame.jumpstrategy import *
 
 show_theme_message()
 game = AttackofTheOrcs()
-#game.play()
-
 game.setup_game_scenario()
 
 knight = game.player
@@ -25,3 +23,5 @@ orc.info()
 orc.equip_with_accessory( 'powersuit')
 orc.equip_with_accessory( 'magiclocket')
 orc.show_details()
+
+#game.play()

@@ -36,11 +36,8 @@ class AbstractGameUnit(metaclass=ABCMeta):
     def show_accessories(self, bold=False, end='\n'):
         """Show the accessory list of the GameUnit """
         msg = "%s的装备:  " % (self.name)
-        msg += '，'.join(item.__class__.__name__
+        msg += '，'.join((item.__class__.__name__ + ' - ' + item.name)
                         for item in self.accessories)
-        # for item in self.accessories:
-        #     msg += type(item).__name__
-        #     msg += ', '
 
         if bold:
             print_bold(msg, end=end)

@@ -4,57 +4,68 @@
 《python应用开发实战》
 """
 
+from abc import ABCMeta
 from gameutils import *
 
 
-# 人类的盔甲, 挂件
-class IronJacket:
+class AbstractAccessory(metaclass=ABCMeta):
+    """"  用于表示装备的抽象类 """
+    def __init__(self, name=''):
+        if name:
+            self.name = name
+        else:
+            self.name = '白板'
+
     def __str__(self):
-        return 'IronJacket'
+        return type(self) + ' - ' + self.name
 
-
-class PowerSuit:
+# 人类的盔甲, 挂件
+class IronJacket(AbstractAccessory):
     pass
 
 
-class MithrilArmor:
+class PowerSuit(AbstractAccessory):
     pass
 
 
-class GlodLocket:
+class MithrilArmor(AbstractAccessory):
     pass
 
 
-class SuperLokcet:
+class GlodLocket(AbstractAccessory):
     pass
 
 
-class MagicLocket:
+class SuperLokcet(AbstractAccessory):
+    pass
+
+
+class MagicLocket(AbstractAccessory):
     pass
 
 
 # 兽人的盔甲, 挂件
-class OrcIronJacket:
+class OrcIronJacket(AbstractAccessory):
     pass
 
 
-class OrcPowerSuit:
+class OrcPowerSuit(AbstractAccessory):
     pass
 
 
-class OrcMithrilArmor:
+class OrcMithrilArmor(AbstractAccessory):
     pass
 
 
-class OrcGlodLocket:
+class OrcGlodLocket(AbstractAccessory):
     pass
 
 
-class OrcSuperLokcet:
+class OrcSuperLokcet(AbstractAccessory):
     pass
 
 
-class OrcMagicLocket:
+class OrcMagicLocket(AbstractAccessory):
     pass
 
 class AccessoryFactory:
