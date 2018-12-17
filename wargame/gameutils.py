@@ -3,9 +3,10 @@
 """
 《python应用开发实战》
 """
-
+import argparse
 import random
 import textwrap
+
 from const import  LINE_WIDTH
 
 def print_dotted_line(width=LINE_WIDTH):
@@ -32,7 +33,7 @@ def show_theme_message(width=LINE_WIDTH):
         '始了一段漫长的旅途。在一个未知的茂密的森'
         '林，他发现了一个小的孤立居住点，因为'
         '疲劳的原因，再加上希望能补充到粮食储备，他'
-        '决定绕道而行。当他走进村庄时，他看见5个木屋'
+        '决定绕道而行。当他走进村庄时，他看见几个木屋'
         '，周围没有任何敌人。犹豫之后，他决定走进其中'
         '一间木屋......'
     )
@@ -62,4 +63,20 @@ def weighted_random_selection(obj1, obj2):
         return None
 
 
+def process_args(namespace=None):
+    """ 处理命令行参数 """
+    parser = argparse.ArgumentParser(
+        prog='AttackofTheOrcs',
+        description="A magic game",
+        epilog="This is where you might put example usage"
+    )
 
+    # position parameter
+    #parser.add_argument('echo', help='echo the string you use here')
+
+    # required argument
+    parser.add_argument('-n', '--hutnumber',  type=int, choices=[0, 1, 2, 3, 4, 5, 6, 7],
+                        default=6, help='Help text for setup hut number in village')
+
+    args = parser.parse_args(namespace=namespace)
+    return vars(args)

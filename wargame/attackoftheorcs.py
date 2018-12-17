@@ -24,8 +24,9 @@ from const import HUT_NUMBER
 
 class AttackofTheOrcs:
 
-    def __init__(self):
+    def __init__(self, hut_number=HUT_NUMBER):
         self.huts = []
+        self.hut_number = hut_number
         self.player = None
 
     @staticmethod
@@ -39,8 +40,9 @@ class AttackofTheOrcs:
         return [x.get_occupant_type() for x in self.huts]
 
     def _occupy_huts(self):
+        print_bold('发现{}座木屋！'.format(self.hut_number))
         """Randomly occupy the hut with one of : friend, enemy or None"""
-        for i in range(HUT_NUMBER):
+        for i in range(self.hut_number):
             choice_list = ['敌人', '朋友', None]
             computer_choice = random.choice(choice_list)
 
@@ -61,7 +63,7 @@ class AttackofTheOrcs:
         idx = 0
         verifying_choice = True
         while verifying_choice:
-            user_choice = input('选择一个木屋进入(1-%d):' % HUT_NUMBER)
+            user_choice = input('选择一个木屋进入(1-%d):' % self.hut_number)
             #  exception process for non-integer user_choice
             try:
                 idx = int(user_choice)
@@ -77,11 +79,11 @@ class AttackofTheOrcs:
                 else:
                     verifying_choice = False
             except IndexError:
-                print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % HUT_NUMBER)
+                print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % self.hut_number)
                 continue
             # If idx <= 0
             except AssertionError:
-                print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % HUT_NUMBER)
+                print('无效输入，你输入的木屋号超过了可选择范围（1-%d)！' % self.hut_number)
                 continue
 
         return idx
@@ -101,7 +103,7 @@ class AttackofTheOrcs:
 
         # main game play logic begins
         acquires_hut_counter = 0
-        while acquires_hut_counter < HUT_NUMBER:
+        while acquires_hut_counter < self.hut_number:
             idx = self._process_user_choice()
             self.player.acquire_hut(self.huts[idx-1])
 
@@ -112,12 +114,13 @@ class AttackofTheOrcs:
             if self.huts[idx-1].is_acquired:
                 acquires_hut_counter += 1
 
-        if acquires_hut_counter == HUT_NUMBER:
+        if acquires_hut_counter == self.hut_number:
             print_bold('祝贺你！你已经调查完所有的木屋')
 
 
 if __name__ == '__main__':
     show_theme_message()
-
-    game = AttackofTheOrcs()
+    args = process_args()
+    hutnumber = args.hutnumber
+    game = AttackofTheOrcs(hutnumber)
     game.play()
