@@ -20,6 +20,7 @@ from hut import Hut
 from knight import Knight
 from orcrider import OrcRider
 from const import HUT_NUMBER
+from jumpstrategy import can_not_jump, power_jump, horse_jump
 
 
 class AttackofTheOrcs:
@@ -117,10 +118,32 @@ class AttackofTheOrcs:
         if acquires_hut_counter == self.hut_number:
             print_bold('祝贺你！你已经调查完所有的木屋')
 
+    def test(self):
+        self.player = Knight()
+        self.player.info()
+        self.player.show_health(bold=False)
+
+        knight = self.player
+        knight.jump()
+        knight.jump = can_not_jump
+        knight.jump()
+
+        knight.equip_with_accessory('ironjacket')
+        knight.equip_with_accessory('superlocket')
+        knight.show_details()
+
+        print_dotted_line()
+
+        orc = OrcRider('Orc战士')
+        orc.info()
+        orc.equip_with_accessory('powersuit')
+        orc.equip_with_accessory('magiclocket')
+        orc.show_details()
+
 
 if __name__ == '__main__':
     show_theme_message()
-    args = process_args()
-    hutnumber = args.hutnumber
+    args = process_args('playgame -n 4'.split())
+    hutnumber = args['hutnumber']
     game = AttackofTheOrcs(hutnumber)
     game.play()

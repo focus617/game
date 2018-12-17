@@ -63,7 +63,7 @@ def weighted_random_selection(obj1, obj2):
         return None
 
 
-def process_args(namespace=None):
+def process_args(args=None, namespace=None):
     """ 处理命令行参数 """
     parser = argparse.ArgumentParser(
         prog='AttackofTheOrcs',
@@ -71,12 +71,13 @@ def process_args(namespace=None):
         epilog="This is where you might put example usage"
     )
 
-    # position parameter
-    #parser.add_argument('echo', help='echo the string you use here')
-
-    # required argument
-    parser.add_argument('-n', '--hutnumber',  type=int, choices=[0, 1, 2, 3, 4, 5, 6, 7],
+    # subparsers
+    subparsers = parser.add_subparsers(dest='function', title='游戏类型', description="可选择的游戏")
+    parser_a = subparsers.add_parser('playgame', help='playgame help')
+    parser_a.add_argument('-n', dest='hutnumber',  type=int, choices=[0, 1, 2, 3, 4, 5, 6, 7],
                         default=6, help='Help text for setup hut number in village')
 
-    args = parser.parse_args(namespace=namespace)
+    parser_b = subparsers.add_parser('test', help='test help')
+
+    args = parser.parse_args(args, namespace)
     return vars(args)
