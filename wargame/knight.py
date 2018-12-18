@@ -9,6 +9,7 @@ from abstractgameunit import AbstractGameUnit
 from jumpstrategy import horse_jump
 from accessoryfactory import AccessoryFactory
 
+
 class Knight(AbstractGameUnit):
     factory = AccessoryFactory  # 抽象工厂，用于添加装备
 
@@ -19,6 +20,13 @@ class Knight(AbstractGameUnit):
         self.unit_type = '朋友'
 
     def info(self):
+        """
+        >>> foo = Knight(name='Foo先生')
+        >>> foo       #doctest: +ELLIPSIS
+        <knight.Knight object at 0x...>
+        >>> foo.info()
+        Foo先生: "我是一名骑士!"
+        """
         print('%s: "我是一名骑士!"' % self.name)
 
     def acquire_hut(self, hut):

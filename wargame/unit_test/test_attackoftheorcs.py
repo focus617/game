@@ -10,7 +10,8 @@ import unittest
 from unittest import mock
 
 from abstractgameunit import AbstractGameUnit
-from attackoftheorcs import AttackofTheOrcs, hut_number
+from attackoftheorcs import AttackofTheOrcs
+from const import HUT_NUMBER
 
 
 class TestAttackofTheOrcs(unittest.TestCase):
@@ -20,13 +21,17 @@ class TestAttackofTheOrcs(unittest.TestCase):
         """ overrides the setUp fixture of the superclass. """
         self.game = AttackofTheOrcs()
 
-    def test_occupy_huts(self):
+    def test_create_hut_number(self):
         """ unit test to verify the hut occupant after it is initially occupied """
         self.game.setup_game_scenario()
 
         # verify that when hut is occupied in setup_game_scenario(),
         # the hut number is equal to hut_number
-        self.assertEqual(len(self.game.huts), hut_number)
+        self.assertEqual(len(self.game.huts), HUT_NUMBER)
+
+    def test_occupy_huts(self):
+        """ unit test to verify the hut occupant after it is initially occupied """
+        self.game.setup_game_scenario()
 
         # the 'hut.occupant' is instance of AbstractGameUnit.
         for hut in self.game.huts:

@@ -36,8 +36,7 @@ class AbstractGameUnit(metaclass=ABCMeta):
     def show_accessories(self, bold=False, end='\n'):
         """Show the accessory list of the GameUnit """
         msg = "%s的装备:  " % (self.name)
-        msg += '，'.join((item.__class__.__name__ + ' - ' + item.name)
-                        for item in self.accessories)
+        msg += '，'.join(str(item) for item in self.accessories)
 
         if bold:
             print_bold(msg, end=end)
@@ -100,6 +99,7 @@ class AbstractGameUnit(metaclass=ABCMeta):
     def equip_with_accessory(self, accessory_type):
         """ This function is used to equip with accessory , such as armor """
         accessory = type(self).factory.create_accessory(accessory_type)
+        print_bold('{0}获得装备: {1} '.format(self.name, accessory))
         self.accessories.append(accessory)
 
 

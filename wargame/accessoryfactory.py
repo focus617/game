@@ -17,10 +17,15 @@ class AbstractAccessory(metaclass=ABCMeta):
             self.name = '白板'
 
     def __str__(self):
-        return type(self) + ' - ' + self.name
+        return (self.__class__.__name__ + '-' + self.name)
+
 
 # 人类的盔甲, 挂件
 class IronJacket(AbstractAccessory):
+    """
+    >>> str(IronJacket())
+    'IronJacket-白板'
+    """
     pass
 
 
@@ -80,7 +85,6 @@ class AccessoryFactory:
 
     @classmethod
     def create_accessory(cls, accessory_type):
-        print_bold('获得%s装备' % accessory_type.upper())
         return cls.accessory_dict.get(accessory_type)()   # 根据armor_type创建具体的盔甲类实例
 
 
